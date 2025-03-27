@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+    <title>Hostel Management System</title>
+    <style>
+        /* Reset default margin & padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background container for animation */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background 1s ease-in-out;
+            z-index: -1;
+        }
+
+        /* Dark overlay for readability */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+
+        /* Main content container */
+        .container {
+            margin-top:190px;
+            position: relative;
+            text-align: center;
+            color: white;
+            width:650px;
+            margin-left:390px;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius:10px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+            
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            margin: 10px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+
+
+        /* Hamburger menu styles */
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        /* Dropdown menu */
+        /* Improved Dropdown menu */
+        .dropdown {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            box-shadow:0px 0px 10px rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: none;
+            flex-direction: column;
+            width: 200px;
+            text-align: left;
+            padding: 12px 0;
+            background:rgba(255, 255, 255, 0.2);
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+        
+        /* Smoothly show dropdown when active */
+        .dropdown.active {
+            display: flex;
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        /* Dropdown links */
+        .dropdown a {
+            text-decoration: none;
+            color: white;
+            padding: 12px 20px;
+            display: block;
+            font-size: 16px;
+            transition: background 0.3s ease-in-out, padding-left 0.2s;
+        }
+        
+        /* Hover effect */
+        .dropdown a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            padding-left: 25px;
+        }
+        
+        /* Hamburger menu icon styles */
+        .menu-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 30px;
+            color: white;
+            background: none;
+            border: none;
+            outline: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease-in-out;
+        }
+        
+        /* Hover effect for menu icon */
+        .menu-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+    /* Footer styling */
+    footer {
+        position: relative;  /* Change from absolute to relative */
+        
+        width: 100%;
+        text-align: center;
+        padding: 100px 0;
+        color: white;
+        font-size: 14px;
+    }
+    
+    
+    .contact-info {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Space between items */
+        flex-wrap: wrap;
+    }
+    
+    .contact-info p {
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        color: white; /* Ensure contact info is white */
+    }
+    
+    .interactive-link {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+    
+    .interactive-link:hover {
+        text-decoration: underline;
+        color: #2e7d32;
+    }
+    
+    .social-icons {
+        margin-top: 10px;
+    }
+    
+    .social-icon img {
+        width: 30px;
+        margin: 0 10px;
+        transition: transform 0.3s ease;
+    }
+    
+    .social-icon img:hover {
+        transform: scale(1.2);
+    }
+    
+    /* Styles for interactive cards and buttons */
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        color: black !important;
+    }
+    
+    .btn-primary, .btn-danger {
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .btn-primary:hover, .btn-danger:hover {
+        transform: scale(1.05);
+    }
+    
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+    
+    .btn-warning {
+        color: #fff;
+    }
+    
+    .card-body, .card-title, .form-label, input {
+        color: black !important;
+    }
+    
+    .card p-4 {
+        background-color: black;
+    }
+
+    </style>
+</head>
+<body>
+
+    <!-- Background Moving Effect -->
+    <div class="background-container"></div>
+
+    <!-- Dark overlay -->
+    <div class="overlay"></div>
+
+
+    <!-- Hamburger Menu Icon -->
+    <button class="menu-icon" onclick="toggleMenu()">☰</button>
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown" id="dropdownMenu">
+        <a href="{{ url_for('about') }}">About Hostel</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Welcome to Hostella</h1>
+        <p>Manage your hostel stay easily with our online system.</p>
+
+        <div class="btn-container">
+            <a href="{{ url_for('login') }}" class="btn">Login</a>
+            <!--<a href="{{ url_for('register') }}" class="btn">Register</a>-->
+            
+
+        </div>
+    </div>
+
+
+
+
+    <!-- Footer (Placed after Facilities Section) -->
+    <footer class="bg-transparent text-white py-4">
+        <div class="container text-center">
+            <p>Address: House 24, Street 586, G13/2, Islamabad</p>
+            <p>Phone: <a href="tel:+918695241237" class="text-decoration-none text-light">+914562127894</a></p>
+            <p>Email: <a href="mailto:contact@hostelmanagement.com" class="text-decoration-none text-light">contact@c3.com</a></p>
+            <div class="d-flex justify-content-center mt-3">
+                <a href="https://www.facebook.com" target="_blank" class="me-3">
+                    <img src="{{ url_for('static', filename='images/facebook-icon.png') }}" alt="Facebook" width="30">
+                </a>
+                <a href="https://www.insta.com" target="_blank" class="me-3">
+                    <img src="{{ url_for('static', filename='images/instagram-icon.png') }}" alt="Twitter" width="30">
+                </a>
+                <a href="https://www.twitter.com" target="_blank" class="me-3">
+                    <img src="{{ url_for('static', filename='images/twitter-icon.png') }}" alt="Twitter" width="30">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Particles.js Configuration -->
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 200,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+
+
+
+   
+
+
+
+
+
+    <script>
+        // Background Images Array (Same as homepage)
+        const images = [
+            '{{ url_for("static", filename="background.jpeg") }}',
+            '{{ url_for("static", filename="background1.jpg") }}',
+            '{{ url_for("static", filename="background2.jpg") }}',
+            '{{ url_for("static", filename="background3.jpg") }}'
+        ];
+
+        let index = 0;
+        const backgroundContainer = document.querySelector('.background-container');
+
+        function changeBackground() {
+            backgroundContainer.style.backgroundImage = `url(${images[index]})`;
+            index = (index + 1) % images.length;
+        }
+
+        setInterval(changeBackground, 3000);
+        changeBackground();
+
+
+        
+        function toggleMenu() {
+            var dropdown = document.getElementById("dropdownMenu");
+            dropdown.classList.toggle("active");
+        }
+        
+        
+    </script>
+<!---
+    <script>
+        // Array of background images
+        const images = [
+            'background.jpeg',
+            'background1.jpg',
+            'background2.jpg',
+            'background3.jpg'
+        ];
+
+        let index = 0;
+        const backgroundContainer = document.querySelector('.background-container');
+
+        function changeBackground() {
+            backgroundContainer.style.backgroundImage = `url(${images[index]})`;
+            index = (index + 1) % images.length; // Loop through images
+        }
+
+        // Change background every 3 seconds
+        setInterval(changeBackground, 3000);
+
+        // Initial background set
+        changeBackground();
+    </script>-->
+
+</body>
+</html>

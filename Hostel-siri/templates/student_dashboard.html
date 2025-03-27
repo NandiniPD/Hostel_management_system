@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Hostella</title>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f8f9fa;
+    }
+
+    header {
+        background: #007BFF;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .dashboard-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 240px;
+        background: #343a40;
+        color: white;
+        padding: 20px;
+        height: 100vh;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar ul li {
+        margin: 20px 0;
+    }
+
+    .sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 12px 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    .sidebar ul li a:hover {
+        background: #495057;
+    }
+
+    .dashboard-content {
+        flex: 1;
+        padding: 40px;
+        text-align: center;
+    }
+
+    .dashboard-content h2 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .student-info {
+        background: white;
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 450px;
+        margin: auto;
+        text-align: left;
+    }
+
+    .student-info p {
+        font-size: 18px;
+        margin: 10px 0;
+        color: #555;
+    }
+
+    footer {
+        background:rgb(226, 231, 237);
+        color: black;
+        text-align: center;
+        padding: 11px;
+        font-size: 13px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+
+</style>
+</head>
+<body>
+
+    <header>
+        Hostella - Student Dashboard
+    </header>
+
+    <div class="dashboard-container">
+
+        <!-- Sidebar Menu -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="{{ url_for('hostel_facilities') }}">🏠 Hostel Facilities</a></li>
+                <li><a href="{{ url_for('room_Alloc') }}">🛏️ Room Allocation</a></li>
+                <li><a href="{{ url_for('attendance') }}">📊 Attendance</a></li>
+                <li><a href="{{ url_for('view_complaints') }}">📩 Complaint Section</a></li>
+                <li><a href="{{ url_for('logout') }}" class="logout">🚪 Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <h2>Welcome, {{ student.name }}</h2>
+            <div class="student-info">
+                <p><strong>Email:</strong> {{ student.email }}</p>
+                <p><strong>Room Number:</strong> {{ student.room_Alloc }}</p>
+                <p><strong>Attendance:</strong> {{ student.attendance }}%</p>
+            </div>
+        </main>
+
+    </div>
+
+    <footer>
+        &copy; 2024 Hostella. All Rights Reserved.
+    </footer>
+
+</body>
+</html>

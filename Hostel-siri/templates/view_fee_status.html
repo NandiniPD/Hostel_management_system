@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Fee Status</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fee Status</h1>
+        </header>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Fee Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fee in fee_status %}
+                    <tr>
+                        <td>{{ fee.student_name }}</td>
+                        <td>{{ fee.fee_status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/admin_dashboard" class="btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

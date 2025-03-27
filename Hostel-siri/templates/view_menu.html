@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Menu</title>
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .table, .table th, .table td {
+            border: 1px solid #ddd;
+        }
+        
+        .table th, .table td {
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .table th {
+            background-color: #007BFF;
+            color: white;
+        }
+        
+        input {
+            width: 100%;
+            padding: 5px;
+            margin: 2px 0;
+        }
+        
+        button {
+            padding: 8px 12px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mess Menu</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Breakfast</th>
+                    <th>Lunch</th>
+                    <th>Dinner</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in menu %}
+                <tr>
+                    <td>{{ item.day }}</td>
+                    <td>{{ item.breakfast }}</td>
+                    <td>{{ item.lunch }}</td>
+                    <td>{{ item.dinner }}</td>
+                    <td>
+                        <form action="/update_menu" method="POST">
+                            <input type="hidden" name="day" value="{{ item.day }}">
+                            <input type="text" name="breakfast" value="{{ item.breakfast }}">
+                            <input type="text" name="lunch" value="{{ item.lunch }}">
+                            <input type="text" name="dinner" value="{{ item.dinner }}">
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/dashboard" class="btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

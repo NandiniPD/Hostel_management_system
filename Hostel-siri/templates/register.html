@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <style>
+        .room-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .room {
+            width: 80px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .available { background-color: lightgray; }
+        .occupied { background-color: green; color: white; cursor: not-allowed; }
+        .selected { border: 3px solid blue; background-color: lightblue; }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Hostel Registration</h2>
+        <form action="{{ url_for('register') }}" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <input type="date" name="dob" required>
+            
+            <select name="room_preference" required>
+                <option value="">Select Room Type</option>
+                <option value="Single">Single Room</option>
+                <option value="Double">Double Room</option>
+                <option value="Shared">Shared Room</option>
+            </select>
+            
+            <h3>Select a Room:</h3>
+            <div class="room-container">
+                {% for room in rooms %}
+                    {% if room['status'] == 'Available' %}
+                        <div class="room available" data-room="{{ room['room_number'] }}" onclick="selectRoom('{{ room['room_number'] }}', this)">
+                            {{ room['room_number'] }}
+                        </div>
+                    {% else %}
+                        <div class="room occupied" data-room="{{ room['room_number'] }}">
+                            {{ room['room_number'] }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <input type="hidden" name="room_number" id="room_selected" required>
+            
+            <input type="text" name="guardian_name" placeholder="Guardian's Name" required>
+            <input type="text" name="guardian_contact" placeholder="Guardian's Contact" required>
+            <input type="password" name="password" placeholder="Create a Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already registered? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
+
+    <script>
+        function selectRoom(roomNumber, element) {
+            // Set room number in hidden input
+            document.getElementById('room_selected').value = roomNumber;
+
+            // Remove 'selected' class from all available rooms
+            let rooms = document.querySelectorAll('.room.available');
+            rooms.forEach(room => room.classList.remove('selected'));
+
+            // Add 'selected' class to the clicked room
+            element.classList.add('selected');
+        }
+    </script>
+
+</body>
+</html>
